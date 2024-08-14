@@ -9,3 +9,19 @@ storage: 10Gi
 
 # Optionally specify the storage class for the PVC.
 # storageClass:
+
+allowSignup: false
+
+puid: 1000
+
+pgid: 1000
+
+# The timezone for the application
+timezone: Europe/Berlin
+
+maxWorker: 1
+
+webConcurrency: 1
+
+# The base URL for the application
+baseURL: https://mealie.yourdomain.com

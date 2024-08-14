@@ -35,8 +35,20 @@ spec:
           image: ghcr.io/mealie-recipes/mealie:v1.11.0
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           env:
-            - name: LOG_LEVEL
-              value: {{ .Values.backend.log_level }}
+            - name: ALLOW_SIGNUP
+              value: {{ .Values.allowSignup }}
+            - name: PUID
+              value: {{ .Values.puid }}
+            - name: PGID
+              value: {{ .Values.pgid }}
+            - name: TZ
+              value: {{ .Values.timezone }}
+            - name: MAX_WORKER
+              value: {{ .Values.maxWorker }}
+            - name: WEB_CONCURRENCY
+              value: {{ .Values.webConcurrency }}
+            - name: BASE_URL
+              value: {{ .Values.baseURL }}
           ports:
             - containerPort: 9000
           volumeMounts:
