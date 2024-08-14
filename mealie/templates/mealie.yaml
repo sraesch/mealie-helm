@@ -36,17 +36,17 @@ spec:
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           env:
             - name: ALLOW_SIGNUP
-              value: {{ .Values.allowSignup }}
+              value: "{{ .Values.allowSignup }}"
             - name: PUID
-              value: {{ .Values.puid }}
+              value: "{{ .Values.puid }}"
             - name: PGID
-              value: {{ .Values.pgid }}
+              value: "{{ .Values.pgid }}"
             - name: TZ
               value: {{ .Values.timezone }}
             - name: MAX_WORKER
-              value: {{ .Values.maxWorker }}
+              value: "{{ .Values.maxWorker }}"
             - name: WEB_CONCURRENCY
-              value: {{ .Values.webConcurrency }}
+              value: "{{ .Values.webConcurrency }}"
             - name: BASE_URL
               value: {{ .Values.baseURL }}
           ports:
