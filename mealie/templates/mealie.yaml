@@ -66,8 +66,10 @@ metadata:
   labels:
     run: mealie-service
 spec:
+  type: NodePort
   ports:
     - port: 9000
       protocol: TCP
+      nodePort: {{ .Values.entryNodePort }}
   selector:
     run: mealie-service
