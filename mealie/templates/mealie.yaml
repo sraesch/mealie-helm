@@ -1,0 +1,61 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: mealie-storage-pvc
+  labels:
+    app: mealie-service
+spec:
+{{- if .Values.storageClass }}
+  storageClassName: {{ .Values.storageClass }}
+{{- end }}
+  selector:
+    matchLabels:
+      app: mealie-service
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.storage }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mealie-service
+spec:
+  selector:
+    matchLabels:
+      run: mealie-service
+  template:
+    metadata:
+      labels:
+        run: mealie-service
+    spec:
+      containers:
+        - name: mealie-service
+          image: ghcr.io/mealie-recipes/mealie:v1.11.0
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          env:
+            - name: LOG_LEVEL
+              value: {{ .Values.backend.log_level }}
+          ports:
+            - containerPort: 9000
+          volumeMounts:
+            - mountPath: /app/data
+              name: mealie-storage
+      volumes:
+        - name: mealie-storage
+          persistentVolumeClaim:
+            claimName: mealie-storage-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mealie-service
+  labels:
+    run: mealie-service
+spec:
+  ports:
+    - port: 9000
+      protocol: TCP
+  selector:
+    run: mealie-service

@@ -1,0 +1,11 @@
+# The policy for pulling images from the registry.
+imagePullPolicy: Always
+
+# The externally exposed (Node-)port.
+entryNodePort: 30042
+
+# The size of the PVC to create.
+storage: 10Gi
+
+# Optionally specify the storage class for the PVC.
+# storageClass:
